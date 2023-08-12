@@ -9,7 +9,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	</http:listener-config>
 	<flow name="hello-mule-apiFlow" doc:id="30ec9c3d-87aa-4a8f-a46f-ca6c2776bbb2" >
 		<http:listener doc:name="Listener" doc:id="c9222e91-1e42-4899-857e-8d916200d5ba" config-ref="HTTP_Listener_config" path="hello-mule" allowedMethods="GET"/>
-		<logger level="INFO" doc:name="Logger" doc:id="58442424-3626-47e7-9edc-baad77d0cdbd" message="Welcome to Mule DevOps demo"/>
-		<logger level="INFO" doc:name="Logger" doc:id="cecb63ed-6067-4c77-a1d8-3dbb28edc089" message="Test Message for Demo. Updated variables"/>
+		<logger level="INFO" doc:name="Logger" doc:id="58442424-3626-47e7-9edc-baad77d0cdbd" message="Welcome to Mule DevOps demo again"/>
+		<logger level="INFO" doc:name="Logger" doc:id="cecb63ed-6067-4c77-a1d8-3dbb28edc089" message="Test Message 1"/>
 	</flow>
 </mule>
