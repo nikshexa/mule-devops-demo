@@ -50,4 +50,4 @@ steps:
     effectivePomSkip: true
     sonarQubeRunAnalysis: false
     #goals: 'clean install package deploy $(MAVEN_OPTS)  -DmuleDeploy -Dserver=$(server) -Denvironment=$(environment) -Dworker=$(worker) -DworkerType=$(workerType) -Dapp.runtime=$(app.runtime) -Dapp.name=$(app.name)'
-    goals: 'clean install package deploy $(MAVEN_OPTS)  -DmuleDeploy -Denvironment=$(env) -Dworker=$(deployment.workers) -DworkerType=$(deployment.workerType) -Dapp.runtime=$(app.runtime) -Dapp.name=$(app.name) -DconnectedApp.clientId=${connectedApp.clientId} -DconnectedApp.clientSecret=${connectedApp.clientSecret} -DconnectedApp.grantType=${connectedApp.grantType}'
+    goals: 'clean install package deploy $(MAVEN_OPTS)  -DmuleDeploy -Denv=$(env) -Dworker=$(deployment.workers) -DworkerType=$(deployment.workerType) -Dapp.runtime=$(app.runtime) -Dapp.name=$(app.name) -DconnectedApp.clientId=$(connectedApp.clientId) -DconnectedApp.clientSecret=$(connectedApp.clientSecret) -DconnectedApp.grantType=$(connectedApp.grantType)'
