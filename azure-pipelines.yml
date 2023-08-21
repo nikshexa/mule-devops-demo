@@ -18,6 +18,26 @@ variables:
   value: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
 
 steps:
+- task: SonarQubePrepare@5
+  inputs:
+    SonarQube: 'IZ Analyzer'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'dns-azure-devops-mule-demo'
+    cliProjectName: 'D&S Azure Devops Mule demo'
+    cliSources: '.'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.exclusions=target
+      sonar.organization=azure-devops-dns-demo
+- task: SonarQubeAnalyze@5
+  inputs:
+    jdkversion: 'JAVA_HOME_11_X64'
+- task: SonarQubePublish@5
+  inputs:
+    pollingTimeoutSec: '300'
 
 - task: CacheBeta@0
   inputs:
@@ -49,5 +69,10 @@ steps:
     mavenVersionOption: 'Default'
     effectivePomSkip: true
     sonarQubeRunAnalysis: false
-    #goals: 'clean install package deploy $(MAVEN_OPTS)  -DmuleDeploy -Dserver=$(server) -Denvironment=$(env) -Dworker=$(deployment.workers) -DworkerType=$(deployment.workerType) -Dapp.runtime=$(app.runtime) -Dapp.name=$(app.name) -DconnectedApp.clientId=${connectedApp.clientId} -DconnectedApp.clientSecret=${connectedApp.clientSecret} -DconnectedApp.grantType=${connectedApp.grantType}'
-    goals: 'clean install package deploy $(MAVEN_OPTS)  -DmuleDeploy -Denv=$(env) -Dworker=$(deployment.workers) -DworkerType=$(deployment.workerType) -Dapp.runtime=$(app.runtime) -Dapp.name=$(app.name) -DconnectedApp.clientId=$(connectedApp.clientId) -DconnectedApp.clientSecret=$(connectedApp.clientSecret) -DconnectedApp.grantType=$(connectedApp.grantType)'
+    #goals: 'clean install package deploy $(MAVEN_OPTS)  -DmuleDeploy -Dserver=$(server) -Denvironment=$(environment) -Dworker=$(worker) -DworkerType=$(workerType) -Dapp.runtime=$(app.runtime) -Dapp.name=$(app.name)'
+    goals: 'clean install package $(MAVEN_OPTS)  -DmuleDeploy -Denv=$(env) -Dworker=$(deployment.workers) -DworkerType=$(deployment.workerType) -Dapp.runtime=$(app.runtime) -Dapp.name=$(app.name) -DconnectedApp.clientId=$(connectedApp.clientId) -DconnectedApp.clientSecret=$(connectedApp.clientSecret) -DconnectedApp.grantType=$(connectedApp.grantType)'
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)'
+    artifact: 'mule-Release'
+    publishLocation: 'pipeline'
