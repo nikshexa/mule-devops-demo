@@ -70,7 +70,7 @@ steps:
     effectivePomSkip: true
     sonarQubeRunAnalysis: false
     #goals: 'clean install package deploy $(MAVEN_OPTS)  -DmuleDeploy -Dserver=$(server) -Denvironment=$(environment) -Dworker=$(worker) -DworkerType=$(workerType) -Dapp.runtime=$(app.runtime) -Dapp.name=$(app.name)'
-    goals: 'clean install package $(MAVEN_OPTS)  -DmuleDeploy -Denv=$(env) -DskipTests=true -Dworker=$(deployment.workers) -DworkerType=$(deployment.workerType) -Dapp.runtime=$(app.runtime) -Dapp.name=$(app.name) -DconnectedApp.clientId=$(connectedApp.clientId) -DconnectedApp.clientSecret=$(connectedApp.clientSecret) -DconnectedApp.grantType=$(connectedApp.grantType)'
+    goals: 'clean install package $(MAVEN_OPTS)  -DmuleDeploy -Denv=$(env) -DskipTests=false -Dworker=$(deployment.workers) -DworkerType=$(deployment.workerType) -Dapp.runtime=$(app.runtime) -Dapp.name=$(app.name) -DconnectedApp.clientId=$(connectedApp.clientId) -DconnectedApp.clientSecret=$(connectedApp.clientSecret) -DconnectedApp.grantType=$(connectedApp.grantType)'
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Pipeline.Workspace)'
