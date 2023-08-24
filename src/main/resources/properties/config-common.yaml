@@ -1,0 +1,4 @@
+commonDeploymentProps:
+  url: "https://anypoint.mulesoft.com"
+  muleVersion: "4.4.0"  
+  osv2: "true"
