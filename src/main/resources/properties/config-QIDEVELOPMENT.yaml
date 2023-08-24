@@ -1,7 +1,7 @@
 deployment:
   workers: "1"
   workerType: "MICRO"
-  env: "CLDEV"
+  env: "QIDEVELOPMENT"
   http:
     listener:
       port: "8081"

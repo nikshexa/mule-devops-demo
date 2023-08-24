@@ -15,6 +15,7 @@
 
 		<app.runtime>4.4.0-20220722</app.runtime>
 		<mule.maven.plugin.version>3.6.3</mule.maven.plugin.version>
+		<munit.version>2.3.11</munit.version>
 	</properties>
 
 	<build>
@@ -34,26 +35,45 @@
 					<cloudHubDeployment>
 						<uri>${commonDeploymentProps.url}</uri>
 						<!-- <server>${server}</server>  -->
-						
 						<muleVersion>${app.runtime}</muleVersion>
 						<applicationName>${app.name}</applicationName>
 						<workers>${deployment.workers}</workers>
 						<workerType>${deployment.workerType}</workerType>
-						<environment>${env}</environment>
+						<environment>${deployment.env}</environment>
 						<objectStoreV2>true</objectStoreV2>
 						<connectedAppClientId>${connectedApp.clientId}</connectedAppClientId>
 						<connectedAppClientSecret>${connectedApp.clientSecret}</connectedAppClientSecret>
 						<connectedAppGrantType>${connectedApp.grantType}</connectedAppGrantType>
 						<properties>
 							<http.port>${deployment.http.listener.port}</http.port>
-							<env>${env}</env>
+							<env>${deployment.env}</env>
 						</properties>
 					</cloudHubDeployment>
 				</configuration>
 			</plugin>
-			
-			
-            
+			<plugin>
+				<groupId>com.mulesoft.munit.tools</groupId>
+				<artifactId>munit-maven-plugin</artifactId>
+				<version>${munit.version}</version>
+				<executions>
+					<execution>
+						<id>test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+							<goal>coverage-report</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<coverage>
+						<runCoverage>true</runCoverage>
+						<formats>
+							<format>html</format>
+						</formats>
+					</coverage>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -69,6 +89,26 @@
 			<artifactId>mule-sockets-connector</artifactId>
 			<version>1.2.2</version>
 			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.munit</groupId>
+			<artifactId>munit-runner</artifactId>
+			<version>2.3.11</version>
+			<classifier>mule-plugin</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mulesoft.munit</groupId>
+			<artifactId>munit-tools</artifactId>
+			<version>2.3.11</version>
+			<classifier>mule-plugin</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.weave</groupId>
+			<artifactId>assertions</artifactId>
+			<version>1.0.2</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
