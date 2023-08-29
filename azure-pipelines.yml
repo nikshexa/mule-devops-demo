@@ -80,7 +80,7 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/target/munit-reports/*.xml'
+    testResultsFiles: '**/target/test-mule/munit/*.xml'
     searchFolder: $(System.DefaultWorkingDirectory)
     mergeTestResults: true
   displayName: 'Publish MUnit Test Results'  
