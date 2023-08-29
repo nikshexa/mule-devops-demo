@@ -49,6 +49,8 @@
 							<env>${deployment.env}</env>
 						</properties>
 					</cloudHubDeployment>
+					<testFailureIgnore>false</testFailureIgnore>
+            		<testReport>true</testReport>
 				</configuration>
 			</plugin>
 			<plugin>

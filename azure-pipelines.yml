@@ -18,26 +18,6 @@ variables:
   value: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
 
 steps:
-- task: SonarQubePrepare@5
-  inputs:
-    SonarQube: 'IZ Analyzer'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'dns-azure-devops-mule-demo'
-    cliProjectName: 'D&S Azure Devops Mule demo'
-    cliSources: '.'
-    extraProperties: |
-      # Additional properties that will be passed to the scanner, 
-      # Put one key=value per line, example:
-      # sonar.exclusions=**/*.bin
-      sonar.exclusions=target
-      sonar.organization=azure-devops-dns-demo
-- task: SonarQubeAnalyze@5
-  inputs:
-    jdkversion: 'JAVA_HOME_11_X64'
-- task: SonarQubePublish@5
-  inputs:
-    pollingTimeoutSec: '300'
 
 - task: CacheBeta@0
   inputs:
@@ -73,21 +53,22 @@ steps:
     goals: 'clean install package $(MAVEN_OPTS)  -DmuleDeploy -Denv=$(env) -DskipTests=false -Dworker=$(deployment.workers) -DworkerType=$(deployment.workerType) -Dapp.runtime=$(app.runtime) -Dapp.name=$(app.name) -DconnectedApp.clientId=$(connectedApp.clientId) -DconnectedApp.clientSecret=$(connectedApp.clientSecret) -DconnectedApp.grantType=$(connectedApp.grantType)'
   displayName: 'Run Maven Build'
   
-- script: mvn test  # Run MUnit tests
+- script: mvn clean test  # Run MUnit tests
   displayName: 'Run MUnit Tests'
   continueOnError: false  # Continue pipeline even if tests fail
 
 - script: ls -R $(System.DefaultWorkingDirectory)/target/test-mule/munit  
 
-- task: PublishTestResults@2
+- task: PublishTestResults@4
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: '**/target/test-mule/munit/*.xml'
+    #testResultsFiles: '**/target/test-mule/munit/*.xml'
+    testResultsFiles: $(System.DefaultWorkingDirectory)'/_nikshexa.mule-devops-demo/mule-Release/s/target/test-mule/munit/*.xml'
     searchFolder: $(System.DefaultWorkingDirectory)
     mergeTestResults: true
   displayName: 'Publish MUnit Test Results'  
   
-- task: PublishPipelineArtifact@1
+- task: PublishPipelineArtifact@5
   inputs:
     targetPath: '$(Pipeline.Workspace)'
     artifact: 'mule-Release'
