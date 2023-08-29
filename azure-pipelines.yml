@@ -18,6 +18,27 @@ variables:
   value: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
 
 steps:
+- task: SonarQubePrepare@5
+  inputs:
+    SonarQube: 'IZ Analyzer'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'dns-azure-devops-mule-demo'
+    cliProjectName: 'D&S Azure Devops Mule demo'
+    cliSources: '.'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.exclusions=target
+      sonar.organization=azure-devops-dns-demo
+- task: SonarQubeAnalyze@5
+  inputs:
+    jdkversion: 'JAVA_HOME_11_X64'
+- task: SonarQubePublish@5
+  inputs:
+    pollingTimeoutSec: '300'
+
 - task: CacheBeta@0
   inputs:
     key: $(Build.SourcesDirectory)/pom.xml
@@ -61,8 +82,8 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    #testResultsFiles: '**/target/test-mule/munit/*.xml'
-    testResultsFiles: $(System.DefaultWorkingDirectory)'/_nikshexa.mule-devops-demo/mule-Release/s/target/test-mule/munit/*.xml'
+    testResultsFiles: '**/target/test-mule/munit/*.xml'
+    #testResultsFiles: $(System.DefaultWorkingDirectory)'/_nikshexa.mule-devops-demo/mule-Release/s/target/test-mule/munit/*.xml'
     searchFolder: $(System.DefaultWorkingDirectory)
     mergeTestResults: true
   displayName: 'Publish MUnit Test Results'  

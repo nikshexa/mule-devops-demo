@@ -71,7 +71,10 @@
 					<coverage>
 						<runCoverage>true</runCoverage>
 						<formats>
-							<format>html</format>
+							<format>console</format>
+			                <format>sonar</format>
+			                <format>html</format>
+			                <format>json</format>
 						</formats>
 					</coverage>
 				</configuration>
