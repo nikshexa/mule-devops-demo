@@ -38,6 +38,12 @@ steps:
 - task: SonarQubePublish@5
   inputs:
     pollingTimeoutSec: '300'
+    
+- powershell: |
+    $result = Get-Content "$(System.DefaultWorkingDirectory)/sonar-report-task.txt" | ConvertFrom-Json
+    Write-Host "SonarQube analysis status: $($result.status)"
+    if ($result.status -ne "SUCCESS") { exit 1 }
+  displayName: 'Check SonarQube Analysis Status'    
 
 - task: CacheBeta@0
   inputs:
