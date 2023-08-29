@@ -18,7 +18,6 @@ variables:
   value: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
 
 steps:
-
 - task: CacheBeta@0
   inputs:
     key: $(Build.SourcesDirectory)/pom.xml
@@ -59,7 +58,7 @@ steps:
 
 - script: ls -R $(System.DefaultWorkingDirectory)/target/test-mule/munit  
 
-- task: PublishTestResults@4
+- task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
     #testResultsFiles: '**/target/test-mule/munit/*.xml'
@@ -68,7 +67,7 @@ steps:
     mergeTestResults: true
   displayName: 'Publish MUnit Test Results'  
   
-- task: PublishPipelineArtifact@5
+- task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Pipeline.Workspace)'
     artifact: 'mule-Release'
