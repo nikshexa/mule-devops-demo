@@ -20,7 +20,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 output application/json
 ---
 {
-	"message": "Welcome to Mulesoft Devops demo " ++ (attributes.queryParams.firstName1 as String ++ " " ++ attributes.queryParams.lastName as String)
+	"message": "Welcome to Mulesoft Devops demo " ++ (attributes.queryParams.firstName as String ++ " " ++ attributes.queryParams.lastName as String)
 	}]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
