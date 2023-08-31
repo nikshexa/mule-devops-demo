@@ -39,6 +39,22 @@ steps:
   inputs:
     pollingTimeoutSec: '300'
     
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      $sonarQubeProjectKey = 'dns-azure-devops-mule-demo'
+      $sonarQubeUrl = 'https://analyzer.integralzone.com'
+      
+      $qualityGateStatus = Invoke-RestMethod -Uri "$sonarQubeUrl/api/qualitygates/project_status?projectKey=$sonarQubeProjectKey&branch=dev"
+      
+      if ($qualityGateStatus.projectStatus.status -eq 'ERROR') {
+        Write-Host "Quality Gate failed. Deployment can't proceed."
+        exit 1  # Fail the release pipeline
+      }
+      else {
+        Write-Host "Quality Gate passed. Deployment can proceed."
+      }    
 
 - task: CacheBeta@0
   inputs:
