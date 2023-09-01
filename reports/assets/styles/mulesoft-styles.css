@@ -4907,7 +4907,7 @@ button.close {
   visibility: hidden;
 }
 .text-hide {
-  font: 0/0 a;
+  /*font: 0;*/
   color: transparent;
   text-shadow: none;
   background-color: transparent;
@@ -5653,7 +5653,8 @@ input[type="button"].btn-block {
   Based on grunt-webfont bem template
 */
 @font-face {
-  font-family: "muleicons";
+  /*font-family: "muleicons";*/
+  font-family: sans-serif;
   src: url("fonts/muleicons.eot?45b9ef00fc1a96380c7e6923ed55c188");
   src: url("fonts/muleicons.eot?#iefix") format("embedded-opentype"), url("fonts/muleicons.woff?45b9ef00fc1a96380c7e6923ed55c188") format("woff"), url("fonts/muleicons.ttf?45b9ef00fc1a96380c7e6923ed55c188") format("truetype");
   font-weight: normal;
@@ -5665,7 +5666,7 @@ input[type="button"].btn-block {
 .mulesoft-datepicker i.glyphicon.glyphicon-chevron-left,
 .mulesoft-datepicker i.glyphicon.glyphicon-chevron-right {
   display: inline-block;
-  font-family: "muleicons";
+  font-family: Sans-serif;
   line-height: 1;
   font-weight: normal;
   font-style: normal;
@@ -5740,7 +5741,7 @@ input[type="button"].btn-block {
 }
 .sidemenu ul.sidemenu-back li > a:before {
   background-color: transparent;
-  font-family: "muleicons";
+  font-family: Sans-serif;
   font-size: 18px;
   padding-left: 5px;
 }
@@ -6297,8 +6298,8 @@ body {
   display: none;
 }
 .radio input[type="radio"]:checked + label:before {
-  background-image: -webkit-linear-gradient(to bottom, #26b178 0%, #26b178 100%), -webkit-linear-gradient(to bottom, transparent 0%, transparent 100%);
-  background-image: linear-gradient(to bottom, #26b178 0%, #26b178 100%), linear-gradient(to bottom, transparent 0%, transparent 100%);
+ /* background-image: -webkit-linear-gradient(to bottom, #26b178 0%, #26b178 100%), -webkit-linear-gradient(to bottom, transparent 0%, transparent 100%);
+  background-image: linear-gradient(to bottom, #26b178 0%, #26b178 100%), linear-gradient(to bottom, transparent 0%, transparent 100%);*/
   background-clip: content-box, padding-box;
   border-color: #26b178;
 }
@@ -6333,8 +6334,8 @@ body {
   background-color: #f2f2f2;
 }
 .radio input[type="radio"]:disabled:checked + label:before {
-  background-image: -webkit-linear-gradient(to bottom, #e0e0e0 0%, #e0e0e0 100%), -webkit-linear-gradient(to bottom, #f2f2f2 0%, #f2f2f2 100%);
-  background-image: linear-gradient(to bottom, #e0e0e0 0%, #e0e0e0 100%), linear-gradient(to bottom, #f2f2f2 0%, #f2f2f2 100%);
+  /*background-image: -webkit-linear-gradient(to bottom, #e0e0e0 0%, #e0e0e0 100%), -webkit-linear-gradient(to bottom, #f2f2f2 0%, #f2f2f2 100%);
+  background-image: linear-gradient(to bottom, #e0e0e0 0%, #e0e0e0 100%), linear-gradient(to bottom, #f2f2f2 0%, #f2f2f2 100%);*/
   background-clip: content-box, padding-box;
 }
 table {
