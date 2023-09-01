@@ -57,25 +57,6 @@ steps:
         Write-Host "Quality Gate passed. Deployment can proceed."
       }    
 
-- script: |
-    # Run your MUnit tests and generate a coverage report
-    mvn clean test -Dmunit.coverage.report.format=html
-  displayName: 'Run MUnit Tests and Generate Coverage Report'
-
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)/target/site/munit/coverage/hello-mule-api-report.html'
-    artifact: 'munit-coverage'
-  displayName: 'Publish Coverage Report Artifact'
-
-- script: |
-    echo "##vso[task.prependpath]/artifact/munit-coverage"
-  displayName: 'Set Coverage Report Link'
-
-- script: |
-    echo "Coverage Report: [View Report](/artifact/munit-coverage/index.html)"
-  displayName: 'Display Coverage Report Link'
-
 - task: CacheBeta@0
   inputs:
     key: $(Build.SourcesDirectory)/pom.xml
@@ -110,6 +91,23 @@ steps:
     goals: 'clean install package $(MAVEN_OPTS)  -DmuleDeploy -Denv=$(env) -DskipTests=false -Dworker=$(deployment.workers) -DworkerType=$(deployment.workerType) -Dapp.runtime=$(app.runtime) -Dapp.name=$(app.name) -DconnectedApp.clientId=$(connectedApp.clientId) -DconnectedApp.clientSecret=$(connectedApp.clientSecret) -DconnectedApp.grantType=$(connectedApp.grantType)'
   displayName: 'Run Maven Build'
   
+- script: mvn clean test -Dmunit.coverage.report.format=html # Run MUnit tests
+  displayName: 'Run MUnit Tests and Generate Coverage Report'
+  continueOnError: true  # Continue pipeline even if tests fail  
+  
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(System.DefaultWorkingDirectory)/target/site/munit/coverage/hello-mule-api-report.html'
+    artifact: 'munit-coverage'
+  displayName: 'Publish Coverage Report Artifact'
+
+- script: |
+    echo "##vso[task.prependpath]/artifact/munit-coverage"
+  displayName: 'Set Coverage Report Link'
+
+- script: |
+    echo "Coverage Report: [View Report](/artifact/munit-coverage/index.html)"
+  displayName: 'Display Coverage Report Link'  
   
 - task: PublishPipelineArtifact@1
   inputs:
