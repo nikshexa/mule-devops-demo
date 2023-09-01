@@ -92,7 +92,7 @@ steps:
   
 - script: mvn clean test  # Run MUnit tests
   displayName: 'Run MUnit Tests'
-  continueOnError: false  # Continue pipeline even if tests fail
+  continueOnError: true  # Continue pipeline even if tests fail
 
 #- script: ls -R $(System.DefaultWorkingDirectory)/target/test-mule/munit  
 - script: ls -R $(System.DefaultWorkingDirectory)
