@@ -32,6 +32,7 @@ steps:
       # sonar.exclusions=**/*.bin
       sonar.exclusions=target/**/*, reports/**/*
       sonar.organization=azure-devops-dns-demo
+      
 - task: SonarQubeAnalyze@5
   inputs:
     jdkversion: 'JAVA_HOME_11_X64'
@@ -55,6 +56,25 @@ steps:
       else {
         Write-Host "Quality Gate passed. Deployment can proceed."
       }    
+
+- script: |
+    # Run your MUnit tests and generate a coverage report
+    mvn clean test -Dmunit.coverage.report.format=html
+  displayName: 'Run MUnit Tests and Generate Coverage Report'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(System.DefaultWorkingDirectory)/target/site/munit/coverage/hello-mule-api-report.html'
+    artifact: 'munit-coverage'
+  displayName: 'Publish Coverage Report Artifact'
+
+- script: |
+    echo "##vso[task.prependpath]/artifact/munit-coverage"
+  displayName: 'Set Coverage Report Link'
+
+- script: |
+    echo "Coverage Report: [View Report](/artifact/munit-coverage/index.html)"
+  displayName: 'Display Coverage Report Link'
 
 - task: CacheBeta@0
   inputs:
