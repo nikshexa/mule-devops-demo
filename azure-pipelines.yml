@@ -112,3 +112,6 @@ steps:
     targetPath: '$(Pipeline.Workspace)'
     artifact: 'mule-Release'
     publishLocation: 'pipeline'
+    
+- script: ls -R $(Pipeline.Workspace)
+  displayName: 'List Contents of PublishPipelineArtifact Directory'    
